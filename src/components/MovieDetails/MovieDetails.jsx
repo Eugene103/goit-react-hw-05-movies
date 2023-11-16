@@ -22,7 +22,7 @@ export const MovieDetails = () => {
                 console.log(error)
             }
         }
-        getMovieDetails()
+        getMovieDetails() // eslint-disable-next-line
     }, [params.moviesId])
 
     const checkHaveUrlMovies = () => {
