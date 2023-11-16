@@ -5,7 +5,6 @@ import { Container, List, Link } from "./MoviesPage.styled";
 
 export default function MoviesPage() { 
     const location = useLocation()
-
     const [params, setParams] = useSearchParams()
     const [searchMovies, setSearchMovies] = useState()
     const query = params.get(`query`) ?? ``;

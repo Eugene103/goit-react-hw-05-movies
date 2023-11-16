@@ -5,30 +5,35 @@ import {  Outlet,  useLocation,  useParams } from "react-router-dom"
 import { Container, List, Image,FLexDiv, Item, ListAddInform, Link} from "./MovieDetails.styled";
 
 export const MovieDetails = () => {
-    const location = useLocation()
+    const location = useLocation();
     const params = useParams() 
     const [movie, setMovie] = useState()
+    const [earlyLock, setEarlyLock] = useState();
+
+ 
 
     useEffect(() => {
        async function getMovieDetails() {
             try {
                 const fetchMovie= await fetchMovieById(params.moviesId)
                 setMovie(fetchMovie)
+                setEarlyLock(location)
             } catch (error) {
                 console.log(error)
             }
         }
         getMovieDetails()
     }, [params.moviesId])
+
     const checkHaveUrlMovies = () => {
-        if (location?.state?.from) {
-            const { state: { from: { pathname, search } } } = location
+        if (earlyLock?.state?.from) {
+            const { state: { from: { pathname, search } } } = earlyLock
             return pathname + search
         }
     }
 
     return (<Container>
-        <BtnGoBack to={(location?.state?.from?.search === ``) ? location?.state?.from?.pathname : checkHaveUrlMovies()} />
+        <BtnGoBack to={(earlyLock?.state?.from?.search === ``) ? earlyLock?.state?.from?.pathname : checkHaveUrlMovies()} />
         {movie && <List>
             <li><Image src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt={movie.title} ></Image></li>
             <FLexDiv>
